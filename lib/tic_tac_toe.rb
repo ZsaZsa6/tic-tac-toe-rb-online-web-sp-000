@@ -1,11 +1,11 @@
 WIN_COMBINATIONS = [
-  [0, 1, 2], 
-  [3, 4, 5], 
-  [6, 7, 8], 
-  [0, 4, 8], 
-  [2, 4, 6], 
-  [0, 3, 6], 
-  [1, 4, 7], 
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+  [0, 3, 6],
+  [1, 4, 7],
   [2, 5, 8]
   ]
 
@@ -18,7 +18,7 @@ def display_board(board)
 end
 
 def input_to_index(user_input)
-  user_input.to_i - 1 
+  user_input.to_i - 1
 end
 
 def position_taken?(board, index)
@@ -28,7 +28,7 @@ end
 def valid_move?(board, index)
   if position_taken?(board, index) == false && index.between?(0,8)
     true
-  end 
+  end
 end
 
 def turn_count(board)
@@ -41,7 +41,7 @@ def turn_count(board)
 end
   turns
 end
-  
+
 def move(board, position, player_token)
     board[position] = player_token
 end
@@ -49,7 +49,7 @@ end
 def current_player(board)
   if turn_count(board) % 2 == 0
     "X"
-  else 
+  else
     "O"
   end
 end
@@ -57,18 +57,18 @@ end
 def turn(board)
   puts "Please enter 1-9:"
   user_input = gets.strip
-    index = input_to_index(user_input) 
+    index = input_to_index(user_input)
   if valid_move?(board, index)
     move(board, index, current_player(board))
     display_board(board)
-  else 
+  else
     puts "invalid"
 turn(board)
   end
 end
 
 def won?(board)
-  WIN_COMBINATIONS.each do |win_combo| 
+  WIN_COMBINATIONS.each do |win_combo|
     index_1 = win_combo[0]
     index_2 = win_combo[1]
     index_3 = win_combo[2]
@@ -76,20 +76,20 @@ def won?(board)
     element_1 = board[index_1]
     element_2 = board[index_2]
     element_3 = board[index_3]
-    
+
   if element_1 == "X" && element_2 == "X" && element_3 == "X" || element_1 == "O" && element_2 == "O" && element_3 == "O"
       return win_combo
    end
 end
   board.any? == "X" || board.any? == "O"
 end
-  
+
 def full?(board)
   board.all? {|element|element == "X" || element == "O"}
 end
 
 def draw?(board)
-    !won?(board) && full?(board) 
+    !won?(board) && full?(board)
 end
 
 def over?(board)
@@ -97,14 +97,14 @@ def over?(board)
 end
 
 def winner(board)
-    win_combo = won?(board) 
+    win_combo = won?(board)
  if win_combo
-   return board[win_combo[0]] 
+   return board[win_combo[0]]
  else
    return nil
   end
  end
-   
+
 def play(board)
   until over?(board)
     turn(board)
